@@ -1,0 +1,23 @@
+name: Bump version
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Semver version (major.minor.patch)"
+        required: true
+jobs:
+  bump-version:
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup CI Environment
+        uses: ./.github/actions/setup-ci-environment
+      - name: Setup Git
+        run: |
+          git config user.name 'Francisco Neves'
+          git config user.email 'francisco.neves@tecnico.ulisboa.pt'
+      - name: Bump version
+        run: npm version ${{ github.event.inputs.version }}
+      - name: Push latest version
+        run: git push origin main --follow-tags

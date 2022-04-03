@@ -1,0 +1,36 @@
+---
+meta:
+  title: Remix form class-validator
+---
+
+# Installation
+
+To install simply run the following command:
+
+```bash
+$ npm install --save remix-form-class-validator
+```
+
+On your `entry.server.tsx` file add the following import statement to import `reflect-metadata`:
+
+```typescript
+// entry.server.tsx
+import "reflect-metadata";
+```
+
+## Configure Typescript
+
+Add the following to your `tsconfig.json`:
+
+```json
+{
+  // ...
+  "compilerOptions": {
+    // ...
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
+    // ...
+  }
+  // ...
+}
+```

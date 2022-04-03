@@ -1,0 +1,62 @@
+---
+meta:
+  title: Remix form class-validator
+---
+
+import { SimpleForm, action } from "../examples/simple-form";
+export { action };
+
+# Usage
+
+Start by defining the DTO class that will hold your parameters, and the respective validations using `class-validator`:
+
+```tsx
+class PersonDto {
+  @IsNotEmpty()
+  @MinLength(2)
+  name: string;
+  @Min(0)
+  @Max(150)
+  age: number;
+}
+```
+
+Declare the route action and use `parseRequestParams` to parse and validate your parameters using your DTO:
+
+```tsx
+const action: ActionFunction = async ({ request }) => {
+  const params = await parseRequestParams(request, PersonDto);
+
+  if (params.errors) {
+    console.log("Form data is invalid", { errors: params.errors });
+  } else {
+    console.log("Form data is valid", { data: params.data });
+  }
+
+  return json(params);
+};
+```
+
+Finally you just need to declare your form and use `useActionData` to access any errors resulting from validating your DTO.
+
+```tsx
+type ActionData = ParseRequestParamsReturn<PersonDto>;
+
+const SimpleForm = () => {
+  const actionData = useActionData<ActionData>();
+
+  return (
+    <Form style={{ maxWidth: 400 }} method="post">
+      <Input name="name" label="Name:" defaultValue={actionData?.data.name} />
+      <InputError errors={actionData?.errors?.name} />
+      <Input name="age" label="Age:" defaultValue={actionData?.data.age} />
+      <InputError errors={actionData?.errors?.age} />
+      <button type="submit" style={{ marginTop: "1rem" }}>
+        Submit
+      </button>
+    </Form>
+  );
+};
+```
+
+You can check the demo and full example [here](./simple-form).

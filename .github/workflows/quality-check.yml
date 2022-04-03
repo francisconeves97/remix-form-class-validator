@@ -1,0 +1,19 @@
+name: Quality Check
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  static-analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup CI Environment
+        uses: ./.github/actions/setup-ci-environment
+      - name: Lint
+        shell: bash
+        run: npm run lint
+      - name: Typecheck
+        shell: bash
+        run: npm run typecheck
+      - name: Test
+        shell: bash
+        run: npm run test

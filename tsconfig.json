@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2019"
+    ],
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "target": "ES2019",
+    "module": "CommonJS",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "outDir": "./build"
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}
